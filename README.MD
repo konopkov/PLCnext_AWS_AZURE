@@ -14,6 +14,11 @@ For this repository, ensure that the AXC F 2152 has an internet connection.
 
 Download this repository to your PC, and using WINSCP copy AzureAwsSetup.sh to the /opt/plcnext/ folder of the PLCNext.
 
+Youtube step-by-step tutorials
+============================================================================
+AWS:
+Azure:
+
 Below explains the additional files needed for the shell script to function properly.
 ============================================================================
 AWS:
