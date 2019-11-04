@@ -12,7 +12,7 @@ For this repositiory, ensure a root user has been created.
 
 For this repository, ensure that the AXC F 2152 has an internet connection.
 
-Download this repository to your PC, and using WINSCP copy nodescript.sh to the /opt/plcnext/ folder of the PLCNext.
+Download this repository to your PC, and using WINSCP copy AzureAwsSetup.sh to the /opt/plcnext/ folder of the PLCNext.
 
 Below explains the additional files needed for the shell script to function properly.
 ============================================================================
