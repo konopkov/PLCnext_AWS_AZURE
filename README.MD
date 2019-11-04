@@ -16,8 +16,8 @@ Download this repository to your PC, and using WINSCP copy AzureAwsSetup.sh to t
 
 Youtube step-by-step tutorials
 ============================================================================
-AWS:
-Azure:
+AWS: coming soon
+Azure: coming soon
 
 Below explains the additional files needed for the shell script to function properly.
 ============================================================================
