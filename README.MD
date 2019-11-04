@@ -34,11 +34,11 @@ Download:
 ==============================================================================
 After all necessary files have been added to the /opt/plcnext/ directory of the controller:
 
-Log into root user, and bash nodescript.sh (./nodescript.sh), and follow the commands in the command line. 
+Log into root user, execute chmod -c 755 AzureAwsSetup.sh and bash AzureAwsSetup.sh (./AzureAwsSetup.sh), and follow the commands in the command line. 
 
 After script completion:
 ==============================================================================
-Import the PLCnext Engineer library into a PLCnext Engineer project.
+Import the PLCnext Engineer library into a PLCnext Engineer project (or use test projects given in PLCnext file folder).
 
 Read the help file attached to the library for additional guidance. 
 
