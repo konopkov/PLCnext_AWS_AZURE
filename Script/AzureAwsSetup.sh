@@ -39,29 +39,35 @@ do
         "AWS Client")
          echo "You chose AWS client"
          cd /
-         wget -O - http://ipkg.nslu2-linux.org/optware-ng/bootstrap/buildroot-armeabihf-bootstrap.sh | sh
+         wget -O - http://ipkg.nslu2-linux.org/optware-ng/bootstrap/buildroot-armeabihf-bootstrap.sh | sh &> /dev/null
          cd /opt
          export PATH=$PATH:/opt/bin:/opt/sbin
-         ipkg install gcc
-         ipkg install python27
-         ipkg install make
-         ipkg install xz-utils
+         echo "Installing gcc please wait....."
+         ipkg install gcc &> /dev/null
+         echo "Installing python2.7 please wait....."
+         ipkg install python27 &> /dev/null
+         echo "Installing make please wait....."
+         ipkg install make &> /dev/null
+         echo "Installing xz-utils please wait....."
+         ipkg install xz-utils &> /dev/null
 
          #Checking to see if packages installed.
+         echo "Checking to ensure packages were installed please wait....."
          type gcc >/dev/null 2>&1 || { echo >&2 "I require gcc but it's not installed.  Aborting."; break; }
          type python2 >/dev/null 2>&1 || { echo >&2 "I require python27 but it's not installed.  Aborting."; break; }
          type make >/dev/null 2>&1 || { echo >&2 "I require make but it's not installed.  Aborting."; break; }
          type xz >/dev/null 2>&1 || { echo >&2 "I require xz-utils but it's not installed.  Aborting."; break; }
-		 
-		 
+         echo "Packages installed correctly."
+
 		 #setting up NTP server
+     echo "Setting up NTP server please wait....."
 		 cd /etc/
 		 rm -r ntp.conf
 		 touch ntp.conf
 		 chmod -c 755 /etc/ntp.conf
-		 
+
 		 cat<<EOF>> /etc/ntp.conf
-		 
+
 		 # This is the most basic ntp configuration file
 		 # The driftfile must remain in a place specific to this
 		 # machine - it records the machine specific clock error
@@ -81,16 +87,17 @@ do
 		 restrict default
 
 EOF
-		 
+
 
 
          #Getting nodejs
-		 cd /opt
-         wget https://nodejs.org/dist/v12.11.0/node-v12.11.0-linux-armv7l.tar.xz
-         xz -d node-v12.11.0-linux-armv7l.tar.xz
-         tar -xf node-v12.11.0-linux-armv7l.tar
-         rm -r node-v12.11.0-linux-armv7l.tar
-         mv node-v12.11.0-linux-armv7l nodejs
+         echo"Setting up Nodejs please wait....."
+		     cd /opt
+         wget https://nodejs.org/dist/v12.11.0/node-v12.11.0-linux-armv7l.tar.xz  &> /dev/null
+         xz -d node-v12.11.0-linux-armv7l.tar.xz &> /dev/null
+         tar -xf node-v12.11.0-linux-armv7l.tar &> /dev/null
+         rm -r node-v12.11.0-linux-armv7l.tar &> /dev/null
+         mv node-v12.11.0-linux-armv7l nodejs &> /dev/null
 
          #node config
          cd /opt/nodejs/bin
@@ -124,46 +131,55 @@ EOF
          npm config set strict-ssl false &> /dev/null
 
          #Checking if node installed
+         echo"Making sure Nodejs installed please wait....."
          type node >/dev/null 2>&1 || { echo >&2 "I require node but it's not installed.  Aborting."; break; }
+         echo"Nodejs was installed correctly."
+
 
          #Getting .js files for project
-         git clone https://github.com/dclark3774/AWS_AZURE_CLIENT.git
-         mkdir /opt/plcnext/projects/awsclient
-         mv /opt/plcnext/AWSCerts /opt/plcnext/projects/awsclient
-         cd AWS_AZURE_CLIENT
-         mv index.js /opt/plcnext/projects/awsclient
+         echo"Retrieving .js files please wait....."
+         git clone https://github.com/dclark3774/AWS_AZURE_CLIENT.git &> /dev/null
+         mkdir /opt/plcnext/projects/awsclient &> /dev/null
+         mv /opt/plcnext/AWSCerts /opt/plcnext/projects/awsclient &> /dev/null
+         cd AWS_AZURE_CLIENT &> /dev/null
+         mv index.js /opt/plcnext/projects/awsclient &> /dev/null
          cd ..
-         rm -r AWS_AZURE_CLIENT
-         cd /opt/plcnext/projects/awsclient
-         npm install aws-iot-device-sdk
-         npm install express
-         npm install net
+         rm -r AWS_AZURE_CLIENT &> /dev/null
+         echo"Installing dependecies please wait....."
+         cd /opt/plcnext/projects/awsclient &> /dev/null
+         echo "Installing aws-iot-device-sdk please wait....."
+         npm install aws-iot-device-sdk &> /dev/null
+         echo "Installing express please wait....."
+         npm install express &> /dev/null
+         echo "Installing net please wait....."
+         npm install net &> /dev/null
 
          #Checking if dependecies installed.
-		 cd /opt/plcnext/projects/awsclient/node_modules
-
-		 if [ ! -d aws-iot-device-sdk  ]; then
-		 echo >&2 "I require aws-iot-device-sdk but it's not installed.  Aborting."; break;
-		 fi
-		 if [ ! -d net ]; then
-		 echo >&2 "I require net but it's not installed.  Aborting."; break;
-		 fi
-		 if [ ! -d express  ]; then
-		 echo >&2 "I require express but it's not installed.  Aborting."; break;
+    		 cd /opt/plcnext/projects/awsclient/node_modules
+         echo "Checking to make sure dependecies installed please wait....."
+    		 if [ ! -d aws-iot-device-sdk  ]; then
+    		 echo >&2 "I require aws-iot-device-sdk but it's not installed.  Aborting."; break;
+    		 fi
+    		 if [ ! -d net ]; then
+    		 echo >&2 "I require net but it's not installed.  Aborting."; break;
+    		 fi
+    		 if [ ! -d express  ]; then
+    		 echo >&2 "I require express but it's not installed.  Aborting."; break;
          fi
+         echo "Dependecies installed correctly."
 
          #PM2 installation and configuration.
          echo "downloading and installing npm pm2 auto boot please wait......."
          cd /opt
-         npm install -g pm2
-         ln -s /opt/nodejs/lib/node_modules/pm2/bin/pm2 /usr/bin/pm2
-         ln -s /opt/nodejs/lib/node_modules/pm2/bin/pm2 /usr/sbin/pm2
+         npm -g install pm2 &> /dev/null
+         ln -s /opt/nodejs/lib/node_modules/pm2/bin/pm2 /usr/bin/pm2 &> /dev/null
+         ln -s /opt/nodejs/lib/node_modules/pm2/bin/pm2 /usr/sbin/pm2 &> /dev/null
 
          #Checking if PM2 installed correctly.
          type pm2 >/dev/null 2>&1 || { echo >&2 "I require pm2 but it's not installed.  Aborting."; break; }
-         pm2 start node /opt/plcnext/projects/awsclient/index.js
-         pm2 save
-         pm2 startup
+         pm2 start node /opt/plcnext/projects/awsclient/index.js &> /dev/null
+         pm2 save &> /dev/null
+         pm2 startup &> /dev/null
          echo "npm pm2 auto boot installed"
 
          echo "Your IOT client is ready"
@@ -175,54 +191,62 @@ EOF
         "Azure Client")
         echo "You chose Azure client"
         cd /
-        wget -O - http://ipkg.nslu2-linux.org/optware-ng/bootstrap/buildroot-armeabihf-bootstrap.sh | sh
+        wget -O - http://ipkg.nslu2-linux.org/optware-ng/bootstrap/buildroot-armeabihf-bootstrap.sh | sh &> /dev/null
         cd /opt
         export PATH=$PATH:/opt/bin:/opt/sbin
-        ipkg install gcc
-        ipkg install python27
-        ipkg install make
-        ipkg install xz-utils
+        echo "Installing gcc please wait....."
+        ipkg install gcc &> /dev/null
+        echo "Installing python2.7 please wait....."
+        ipkg install python27 &> /dev/null
+        echo "Installing make please wait....."
+        ipkg install make &> /dev/null
+        echo "Installing xz-utils please wait....."
+        ipkg install xz-utils &> /dev/null
 
         #Checking to see if packages installed.
+        echo "Checking to ensure packages were installed please wait....."
         type gcc >/dev/null 2>&1 || { echo >&2 "I require gcc but it's not installed.  Aborting."; break; }
         type python2 >/dev/null 2>&1 || { echo >&2 "I require python27 but it's not installed.  Aborting."; break; }
         type make >/dev/null 2>&1 || { echo >&2 "I require make but it's not installed.  Aborting."; break; }
         type xz >/dev/null 2>&1 || { echo >&2 "I require xz-utils but it's not installed.  Aborting."; break; }
+        echo "Packages installed correctly."
 
-		#setting up NTP server
-		 cd /etc/
-		 rm -r ntp.conf
-		 touch ntp.conf
-		 chmod -c 755 /etc/ntp.conf
-		 
-		 cat<<EOF>> /etc/ntp.conf
-		 
-		 # This is the most basic ntp configuration file
-		 # The driftfile must remain in a place specific to this
-		 # machine - it records the machine specific clock error
-		 driftfile /var/lib/ntp/drift
-		 # This should be a server that is close (in IP terms)
-		 # to the machine.  Add other servers as required.
-		 # Unless you un-comment the line below ntpd will sync
-		 # only against the local system clock.
-		 #
-		 server time.google.com
-		 #
-		 # Using local hardware clock as fallback
-		 # Disable this when using ntpd -q -g -x as ntpdate or it will sync to itself
-		 #server 127.127.1.0
-		 #fudge 127.127.1.0 stratum 14
-		 # Defining a default security setting
-		 restrict default
+    #setting up NTP server
+    echo "Setting up NTP server please wait....."
+    cd /etc/
+    rm -r ntp.conf
+    touch ntp.conf
+    chmod -c 755 /etc/ntp.conf
+
+    cat<<EOF>> /etc/ntp.conf
+
+    # This is the most basic ntp configuration file
+    # The driftfile must remain in a place specific to this
+    # machine - it records the machine specific clock error
+    driftfile /var/lib/ntp/drift
+    # This should be a server that is close (in IP terms)
+    # to the machine.  Add other servers as required.
+    # Unless you un-comment the line below ntpd will sync
+    # only against the local system clock.
+    #
+    server time.google.com
+    #
+    # Using local hardware clock as fallback
+    # Disable this when using ntpd -q -g -x as ntpdate or it will sync to itself
+    #server 127.127.1.0
+    #fudge 127.127.1.0 stratum 14
+    # Defining a default security setting
+    restrict default
 
 EOF
 
 		#setting up Reverse Proxy
+    echo "Setting up reverse proxy please wait....."
 		 cd /etc/nginx
 		 rm -r nginx.conf
 		 touch nginx.conf
 		 chmod -c 755 /etc/nginx/nginx.conf
-		 
+
 		 cat<<EOF>> /etc/nginx/nginx.conf
 		 		user www;
 				worker_processes  5;
@@ -309,7 +333,7 @@ EOF
 							fastcgi_pass_header status;
 							fastcgi_pass_header Authorization;
 							expires     off;
-							add_header Cache-Control no-cache; 
+							add_header Cache-Control no-cache;
 							include        fastcgi_params;
 							access_log  /var/log/nginx/host.access.log  combined if=$loggable;
 							error_log  	/var/log/nginx/host.error.log  error;
@@ -363,22 +387,22 @@ EOF
 								fastcgi_pass_header Cookie;
 								include fastcgi.conf;
 							}
-							
+
 							add_header X-Frame-Options SAMEORIGIN;
 						}
-						
+
 						location /welcome {
 							alias /var/www/plcnext/welcome;
 							index index.html;
-							
+
 							add_header X-Frame-Options SAMEORIGIN;
 						}
-						
+
 						location /redirect {
 							alias /var/www/plcnext/redirect;
 							index index.html;
 							ssi on;
-							
+
 							add_header X-Frame-Options SAMEORIGIN;
 						}
 					}
@@ -388,12 +412,13 @@ EOF
 
 
         #Getting nodejs
-		cd /opt
-        wget https://nodejs.org/dist/v12.11.0/node-v12.11.0-linux-armv7l.tar.xz
-        xz -d node-v12.11.0-linux-armv7l.tar.xz
-        tar -xf node-v12.11.0-linux-armv7l.tar
-        rm -r node-v12.11.0-linux-armv7l.tar
-        mv node-v12.11.0-linux-armv7l nodejs
+        echo"Setting up Nodejs please wait....."
+        cd /opt
+        wget https://nodejs.org/dist/v12.11.0/node-v12.11.0-linux-armv7l.tar.xz  &> /dev/null
+        xz -d node-v12.11.0-linux-armv7l.tar.xz &> /dev/null
+        tar -xf node-v12.11.0-linux-armv7l.tar &> /dev/null
+        rm -r node-v12.11.0-linux-armv7l.tar &> /dev/null
+        mv node-v12.11.0-linux-armv7l nodejs &> /dev/null
 
         #node config
         cd /opt/nodejs/bin
@@ -427,19 +452,28 @@ EOF
         npm config set strict-ssl false &> /dev/null
 
         #Checking if node installed
+        echo"Making sure Nodejs installed please wait....."
         type node >/dev/null 2>&1 || { echo >&2 "I require node but it's not installed.  Aborting."; break; }
+        echo"Nodejs was installed correctly."
+
 
         #Getting .js files for project
+        echo"Retrieving .js files please wait....."
         git clone https://github.com/dclark3774/AWS_AZURE_CLIENT.git
         mkdir /opt/plcnext/projects/azureclient
         cd AWS_AZURE_CLIENT
         mv azureClient.js /opt/plcnext/projects/azureclient
         cd ..
         rm -r AWS_AZURE_CLIENT
+        echo"Installing dependecies please wait....."
         cd /opt/plcnext/projects/azureclient
+        echo"Installing azure-iot-device please wait....."
         npm install azure-iot-device
+        echo"Installing azure-iot-device-mqtt please wait....."
         npm install azure-iot-device-mqtt
+        echo"Installing express please wait....."
         npm install express
+        echo"Installing net please wait....."
         npm install net
 
         #Checking if dependecies installed.
@@ -497,4 +531,3 @@ fi
 fi
 
 echo "Script is done"
-
