@@ -18,7 +18,7 @@ Youtube step-by-step tutorials
 ============================================================================
 AWS: coming soon
 
-Azure: coming soon
+Azure: https://youtu.be/QST1RpTkdfA
 
 Below explains the additional files needed for the shell script to function properly.
 ============================================================================
