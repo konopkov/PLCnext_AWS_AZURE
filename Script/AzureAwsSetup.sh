@@ -93,7 +93,7 @@ EOF
          #Getting nodejs
          echo"Setting up Nodejs please wait....."
 		     cd /opt
-         wget https://nodejs.org/dist/v12.11.0/node-v12.11.0-linux-armv7l.tar.xz  &> /dev/null
+         wget https://nodejs.org/dist/v12.14.1/node-v12.14.1-linux-armv7l.tar.xz  &> /dev/null
          xz -d node-v12.11.0-linux-armv7l.tar.xz &> /dev/null
          tar -xf node-v12.11.0-linux-armv7l.tar &> /dev/null
          rm -r node-v12.11.0-linux-armv7l.tar &> /dev/null
@@ -414,7 +414,7 @@ EOF
         #Getting nodejs
         echo"Setting up Nodejs please wait....."
         cd /opt
-        wget https://nodejs.org/dist/v12.11.0/node-v12.11.0-linux-armv7l.tar.xz  &> /dev/null
+        wget https://nodejs.org/dist/v12.14.1/node-v12.14.1-linux-armv7l.tar.xz  &> /dev/null
         xz -d node-v12.11.0-linux-armv7l.tar.xz &> /dev/null
         tar -xf node-v12.11.0-linux-armv7l.tar &> /dev/null
         rm -r node-v12.11.0-linux-armv7l.tar &> /dev/null
