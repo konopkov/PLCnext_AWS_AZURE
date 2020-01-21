@@ -66,7 +66,7 @@ do
 		 touch ntp.conf
 		 chmod -c 755 /etc/ntp.conf
 
-		 cat<<EOF>> /etc/ntp.conf
+		 cat << EOF > /etc/ntp.conf
 
 		 # This is the most basic ntp configuration file
 		 # The driftfile must remain in a place specific to this
@@ -91,13 +91,13 @@ EOF
 
 
          #Getting nodejs
-         echo"Setting up Nodejs please wait....."
+         echo "Setting up Nodejs please wait....."
 		     cd /opt
          wget https://nodejs.org/dist/v12.14.1/node-v12.14.1-linux-armv7l.tar.xz  &> /dev/null
-         xz -d node-v12.11.0-linux-armv7l.tar.xz &> /dev/null
-         tar -xf node-v12.11.0-linux-armv7l.tar &> /dev/null
-         rm -r node-v12.11.0-linux-armv7l.tar &> /dev/null
-         mv node-v12.11.0-linux-armv7l nodejs &> /dev/null
+         xz -d node-v12.14.1-linux-armv7l.tar.xz &> /dev/null
+         tar -xf node-v12.14.1-linux-armv7l.tar &> /dev/null
+         rm -r node-v12.14.1-linux-armv7l.tar &> /dev/null
+         mv node-v12.14.1-linux-armv7l nodejs &> /dev/null
 
          #node config
          cd /opt/nodejs/bin
@@ -131,13 +131,13 @@ EOF
          npm config set strict-ssl false &> /dev/null
 
          #Checking if node installed
-         echo"Making sure Nodejs installed please wait....."
+         echo "Making sure Nodejs installed please wait....."
          type node >/dev/null 2>&1 || { echo >&2 "I require node but it's not installed.  Aborting."; break; }
-         echo"Nodejs was installed correctly."
+         echo "Nodejs was installed correctly."
 
 
          #Getting .js files for project
-         echo"Retrieving .js files please wait....."
+         echo "Retrieving .js files please wait....."
          git clone https://github.com/dclark3774/AWS_AZURE_CLIENT.git &> /dev/null
          mkdir /opt/plcnext/projects/awsclient &> /dev/null
          mv /opt/plcnext/AWSCerts /opt/plcnext/projects/awsclient &> /dev/null
@@ -145,7 +145,7 @@ EOF
          mv index.js /opt/plcnext/projects/awsclient &> /dev/null
          cd ..
          rm -r AWS_AZURE_CLIENT &> /dev/null
-         echo"Installing dependecies please wait....."
+         echo "Installing dependecies please wait....."
          cd /opt/plcnext/projects/awsclient &> /dev/null
          echo "Installing aws-iot-device-sdk please wait....."
          npm install aws-iot-device-sdk &> /dev/null
@@ -218,7 +218,7 @@ EOF
     touch ntp.conf
     chmod -c 755 /etc/ntp.conf
 
-    cat<<EOF>> /etc/ntp.conf
+    cat << EOF > /etc/ntp.conf
 
     # This is the most basic ntp configuration file
     # The driftfile must remain in a place specific to this
@@ -247,7 +247,7 @@ EOF
 		 touch nginx.conf
 		 chmod -c 755 /etc/nginx/nginx.conf
 
-		 cat<<EOF>> /etc/nginx/nginx.conf
+		 cat << EOF > /etc/nginx/nginx.conf
 		 		user www;
 				worker_processes  5;
 
@@ -412,13 +412,13 @@ EOF
 
 
         #Getting nodejs
-        echo"Setting up Nodejs please wait....."
+        echo "Setting up Nodejs please wait....."
         cd /opt
         wget https://nodejs.org/dist/v12.14.1/node-v12.14.1-linux-armv7l.tar.xz  &> /dev/null
-        xz -d node-v12.11.0-linux-armv7l.tar.xz &> /dev/null
-        tar -xf node-v12.11.0-linux-armv7l.tar &> /dev/null
-        rm -r node-v12.11.0-linux-armv7l.tar &> /dev/null
-        mv node-v12.11.0-linux-armv7l nodejs &> /dev/null
+        xz -d node-v12.14.1-linux-armv7l.tar.xz &> /dev/null
+        tar -xf node-v12.14.1-linux-armv7l.tar &> /dev/null
+        rm -r node-v12.14.1-linux-armv7l.tar &> /dev/null
+        mv node-v12.14.1-linux-armv7l nodejs &> /dev/null
 
         #node config
         cd /opt/nodejs/bin
@@ -452,28 +452,28 @@ EOF
         npm config set strict-ssl false &> /dev/null
 
         #Checking if node installed
-        echo"Making sure Nodejs installed please wait....."
+        echo "Making sure Nodejs installed please wait....."
         type node >/dev/null 2>&1 || { echo >&2 "I require node but it's not installed.  Aborting."; break; }
-        echo"Nodejs was installed correctly."
+        echo "Nodejs was installed correctly."
 
 
         #Getting .js files for project
-        echo"Retrieving .js files please wait....."
+        echo "Retrieving .js files please wait....."
         git clone https://github.com/dclark3774/AWS_AZURE_CLIENT.git
         mkdir /opt/plcnext/projects/azureclient
         cd AWS_AZURE_CLIENT
         mv azureClient.js /opt/plcnext/projects/azureclient
         cd ..
         rm -r AWS_AZURE_CLIENT
-        echo"Installing dependecies please wait....."
+        echo "Installing dependecies please wait....."
         cd /opt/plcnext/projects/azureclient
-        echo"Installing azure-iot-device please wait....."
+        echo "Installing azure-iot-device please wait....."
         npm install azure-iot-device
-        echo"Installing azure-iot-device-mqtt please wait....."
+        echo "Installing azure-iot-device-mqtt please wait....."
         npm install azure-iot-device-mqtt
-        echo"Installing express please wait....."
+        echo "Installing express please wait....."
         npm install express
-        echo"Installing net please wait....."
+        echo "Installing net please wait....."
         npm install net
 
         #Checking if dependecies installed.
